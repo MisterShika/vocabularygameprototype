@@ -1,13 +1,12 @@
-import React, { useState, useEffect, lazy } from 'react';
+import React, { useState, useEffect } from 'react';
 
-//const wordlist = lazy(() => import('./vocabdata/wordlist.json'));
 
 const wordlist = require('./vocabdata/n5vocab.json');
 
 export default function Vocab() {
   
-  
-  const [word, setWord] = useState(  {
+  // Target word and random word array
+  const [word, setWord] = useState({
     "id": "",
     "jlpt": "",
     "vocab": "",
@@ -16,25 +15,73 @@ export default function Vocab() {
     "type": "",
     "furigana": ""
   });
+  const [selection, setSelection] = useState([]);
   
-  const generateWord = (wordArray) => {
-    const wordPos = Math.floor(Math.random() * wordArray.length);
-    setWord(() => {return wordArray[wordPos]});
+  // Generates X number of words based on number and array
+  const generateRandomWords = (number, wordArray) => {
+    // Return one object
+    if(number === 1){
+      let wordPos = Math.floor(Math.random() * wordArray.length);
+      return wordArray[wordPos];
+    }
+    // Return an array of objects
+    const returnedArray = [];
+    for(let i = 0; i < number; i++){
+      let wordPos = Math.floor(Math.random() * wordArray.length);
+      returnedArray.push(wordArray[wordPos]);
+    }
+    return returnedArray;
   };
 
+
+  const shuffle = (array) => {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+
+  const regenerateWords = () => {
+    const theObject = generateRandomWords(1, wordlist);
+    setWord(() => theObject);
+  }
+
+
+  //Initialize target word
   useEffect(() => {
-    generateWord(wordlist);
+    regenerateWords()
   }, []);
-  
+
+  //Initialize other words by taking target word and copying it into the selection state
+  useEffect(() => {
+    let theWords = generateRandomWords(4, wordlist)
+    const targetWord = word
+    theWords.push(targetWord)
+    theWords = shuffle(theWords)
+    setSelection(theWords)
+  }, [word]);
+
   return (
     <div className="Vocab">
         <div className="word-box">
-          Word: {word.vocab} <br />
-          Word: {word.furigana} <br />
-          Word: {word.meaning} <br />
-          Word: {word.type} <br />
+          Word: {word.vocab}
         </div>
-        <button onClick={() => generateWord(wordlist)}>Press button</button>
+        <hr />
+        <div className="test-box">
+            {selection.map((selectedWord, index) => {
+            return (
+              <div key={index}>
+                <span>{index+1} : </span><span>{selectedWord.kana}</span>
+              </div>
+            );
+          })}
+        </div>
+        <button onClick={regenerateWords}>Generate New Word Set</button>
     </div>
   );
 }
