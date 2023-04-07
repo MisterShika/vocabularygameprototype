@@ -5,7 +5,7 @@ const wordlist = require('./vocabdata/n5vocab.json');
 
 export default function Vocab() {
   
-  // Target word and random word array
+  // Target word and random word array, and hp setting
   const [word, setWord] = useState({
     "id": "",
     "jlpt": "",
@@ -16,6 +16,8 @@ export default function Vocab() {
     "furigana": ""
   });
   const [selection, setSelection] = useState([]);
+  const [myHP, setMyHP] = useState(100);
+  const [theirHP, setTheirHP] = useState(100);
   
   // Generates X number of words based on number and array
   const generateRandomWords = (number, wordArray) => {
@@ -33,7 +35,7 @@ export default function Vocab() {
     return returnedArray;
   };
 
-
+  //Generic shuffle function
   const shuffle = (array) => {
     let currentIndex = array.length,  randomIndex;
     while (currentIndex !== 0) {
@@ -45,10 +47,23 @@ export default function Vocab() {
     return array;
   }
 
-
+  //Set new target word and, consequently, 4 additional words.
   const regenerateWords = () => {
     const theObject = generateRandomWords(1, wordlist);
     setWord(() => theObject);
+  }
+
+
+  //Choosing a word effects
+  const chooseWord = (targetID) => {
+    const theWordID = word.id;
+    if(targetID === theWordID){
+      setTheirHP(theirHP - 1);
+      regenerateWords();
+    }else{
+      setMyHP(myHP - 1);
+      regenerateWords();
+    }
   }
 
 
@@ -76,12 +91,18 @@ export default function Vocab() {
             {selection.map((selectedWord, index) => {
             return (
               <div key={index}>
-                <span>{index+1} : </span><span>{selectedWord.kana}</span>
+                <span>{index+1} : </span><button onClick={() => chooseWord(selectedWord.id)}>{selectedWord.kana}</button>
               </div>
             );
           })}
         </div>
-        <button onClick={regenerateWords}>Generate New Word Set</button>
+       <hr />
+        <div className="player-hp">
+            <span>Player HP: {myHP}</span>
+        </div>
+        <div className="enemy-hp">
+            <span>Enemy HP: {theirHP}</span>
+        </div>
     </div>
   );
 }
