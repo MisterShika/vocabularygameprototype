@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 
 const wordlist = require('./vocabdata/n5vocab.json');
 
-export default function Vocab() {
+export default function Vocab({rightOrWrong}) {
   
+  
+
   // Target word and random word array, and hp setting
   const [word, setWord] = useState({
     "id": "",
@@ -16,8 +18,6 @@ export default function Vocab() {
     "furigana": ""
   });
   const [selection, setSelection] = useState([]);
-  const [myHP, setMyHP] = useState(100);
-  const [theirHP, setTheirHP] = useState(100);
   
   // Generates X number of words based on number and array
   const generateRandomWords = (number, wordArray) => {
@@ -54,16 +54,15 @@ export default function Vocab() {
   }
 
 
-  //Choosing a word effects
+  //Pass if answered correctly or not to parent component
   const chooseWord = (targetID) => {
     const theWordID = word.id;
     if(targetID === theWordID){
-      setTheirHP(theirHP - 1);
-      regenerateWords();
+      rightOrWrong(true);
     }else{
-      setMyHP(myHP - 1);
-      regenerateWords();
+      rightOrWrong(false);
     }
+    regenerateWords();
   }
 
 
@@ -95,13 +94,6 @@ export default function Vocab() {
               </div>
             );
           })}
-        </div>
-       <hr />
-        <div className="player-hp">
-            <span>Player HP: {myHP}</span>
-        </div>
-        <div className="enemy-hp">
-            <span>Enemy HP: {theirHP}</span>
         </div>
     </div>
   );
