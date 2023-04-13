@@ -96,7 +96,7 @@ function App() {
         </div>
 
       ) : (
-
+      <div className="holder">
         <div className="top-box">
           <Player 
             myHP={myHP}
@@ -111,12 +111,13 @@ function App() {
             setMyXP={setMyXP}
             myXP={myXP}
           />
-          <hr />
+        </div>
+        <div className="bottom-box">
           <Vocab 
             rightOrWrong={rightOrWrong}
           />
         </div>
-
+      </div>
       )}
     </div>
   );

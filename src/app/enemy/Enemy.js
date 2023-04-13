@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './enemy.css';
 
 export default function Enemy({setMyXP, myXP, theMonster, setTheMonster}) {
 
@@ -11,7 +12,8 @@ export default function Enemy({setMyXP, myXP, theMonster, setTheMonster}) {
         switch(monsterChoice){
             case 0:
                 setTheMonster({
-                    "mName": "Slime",
+                    "mName": "Snake",
+                    "mArt" : "snake",
                     "mHP": 2,
                     "mXP": 2
                 });
@@ -19,27 +21,31 @@ export default function Enemy({setMyXP, myXP, theMonster, setTheMonster}) {
             case 1:
                 setTheMonster({
                     "mName": "Rat",
+                    "mArt" : "rat",
                     "mHP": 3,
                     "mXP": 3
                 });
                 break;
             case 2:
                 setTheMonster({
-                    "mName": "Goblin",
+                    "mName": "Bear",
+                    "mArt" : "bear",
                     "mHP": 4,
                     "mXP": 4
                 });
                 break;
             case 3:
                 setTheMonster({
-                    "mName": "Circle Pie",
+                    "mName": "Wolf",
+                    "mArt" : "wolf",
                     "mHP": 5,
                     "mXP": 5
                 });
                 break; 
             case 4:
                 setTheMonster({
-                    "mName": "Scary Onigiri",
+                    "mName": "Seagull",
+                    "mArt" : "seagull",
                     "mHP": 6,
                     "mXP": 6
                 });
@@ -61,11 +67,10 @@ export default function Enemy({setMyXP, myXP, theMonster, setTheMonster}) {
         }
     }, [theMonster.mHP]);
 
-
   
     return (
-        <div className="Enemy">
-            <hr />
+        <div className="enemy">
+            <div className={`monster-image-box ${theMonster.mArt}`}></div>
             Monster: {theMonster.mName}<br />
             HP: {theMonster.mHP}
         

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './player.css';
 
 export default function Player({myHP, myLVL, setMyLVL, charClass, myXP}) {
   
@@ -8,7 +9,8 @@ export default function Player({myHP, myLVL, setMyLVL, charClass, myXP}) {
     }, [myXP]);
   
     return (
-        <div className="Player">
+        <div className="player">
+            <div className={`hero-image-box ${charClass}`}></div>
             Level {myLVL} {charClass}<br />
             Player HP : {myHP}<br />
             Player XP : {myXP}

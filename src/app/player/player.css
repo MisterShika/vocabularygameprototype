@@ -1,0 +1,28 @@
+.hero-image-box{
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    background-image: url("img/hero-sprites.png");
+    background-size: 1008px 600px;
+    width: 150px;
+    height: 192px;
+    margin-top: -212px;
+    margin-bottom: 20px;
+    /*
+        84   336
+        50   200
+    */
+}
+
+.hero-image-box.warrior{
+    background-position-x: 75%;
+    background-position-y: 0%;
+}
+.hero-image-box.rogue{
+    background-position-x: 100%;
+    background-position-y: 100%;
+}
+.hero-image-box.wizard{
+    background-position-x: 0%;
+    background-position-y: 0%;
+}

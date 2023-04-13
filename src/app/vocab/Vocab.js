@@ -90,7 +90,7 @@ export default function Vocab({rightOrWrong}) {
             {selection.map((selectedWord, index) => {
             return (
               <div key={index}>
-                <span>{index+1} : </span><button onClick={() => chooseWord(selectedWord.id)}>{selectedWord.kana}</button>
+                <div onClick={() => chooseWord(selectedWord.id)}>{selectedWord.kana}</div>
               </div>
             );
           })}

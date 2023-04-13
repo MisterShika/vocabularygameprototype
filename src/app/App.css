@@ -1,0 +1,13 @@
+.top-box{
+    background: url(img/background.jpg) 50% 50%;
+    display: grid;
+    grid-template-columns: auto auto;
+    padding-top: 250px;
+}
+
+.player,
+.enemy{
+    background: black;
+    color: white;
+    font-size: 2em;
+}
