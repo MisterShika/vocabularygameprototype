@@ -10,6 +10,44 @@
     margin-bottom: 20px;
 }
 
+@keyframes rightSprite{
+    from{background-position-x: -1280px;}
+    to{background-position-x: -1920px;}
+}
+@keyframes leftSprite{
+    from{background-position-x: 0;}
+    to{background-position-x: -640px;}
+}
+@keyframes ratSprite{
+    from{background-position-x: -1920px;}
+    to{background-position-x: -2560px;}
+}
+.monster-image-box.snake{
+    background-position-x: 0;
+    background-position-y: 0;
+    animation: leftSprite .9s steps(4) infinite;
+}
+.monster-image-box.rat{
+    background-position-x: -1920px;
+    background-position-y: -1920px;
+    animation: ratSprite .9s steps(4) infinite;
+}
+.monster-image-box.wolf{
+    background-position-x: 0;
+    background-position-y: -3840px;
+    animation: leftSprite .9s steps(4) infinite;
+}
+.monster-image-box.seagull{
+    background-position-x: -1280px;
+    background-position-y: -2400px;
+    animation: rightSprite .9s steps(4) infinite;
+}
+.monster-image-box.bear{
+    background-position-x: 0;
+    background-position-y: -2880px;
+    animation: leftSprite .9s steps(4) infinite;
+}
+
 /*
     256 2560
     480 4800
